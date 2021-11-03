@@ -4,17 +4,23 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo 'Building..'
+                 sh './mvn --version'
+                 sh './mvn clean'
+                 sh './mvn compile'
+
+                 echo " comiple successfully.....!"
             }
         }
         stage('Test') {
             steps {
-                echo 'Testing..'
+               sh './mvn test'
+               echo " tested successfully.......!"
             }
         }
         stage('Deploy') {
             steps {
-                echo 'Deploying....'
+                sh './mvn clean package'
+                echo " packaged successfully....!"
             }
         }
     }
