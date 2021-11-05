@@ -14,13 +14,13 @@ pipeline {
         stage('Test') {
             steps {
                 sh 'mvn test'
-                echo 'Testing..'
+                junit '**/target/surefire-reports/TEST-*.xml'
+                echo 'Testing done..'
             }
         }
         stage('build') {
             steps {
-                sh 'mvn package'
-                junit '**/target/surefire-reports/TEST-*.xml'
+                sh 'mvn clean package -Dmaven.test.skip=true'
                 archiveArtifacts 'target/*.jar'
             }
         }
