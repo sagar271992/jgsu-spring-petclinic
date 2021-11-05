@@ -20,6 +20,8 @@ pipeline {
         stage('build') {
             steps {
                 sh 'mvn package'
+                junit '**/target/surefire-reports/TEST-*.xml'
+                archiveArtifacts 'target/*.jar'
             }
         }
         stage('deploy') {
@@ -30,8 +32,7 @@ pipeline {
     }
     post {
             success {
-            junit '**/target/surefire-reports/TEST-*.xml'
-            archiveArtifacts 'target/*.jar'
+                 echo "build success..........! nice sagar you got it"
             }
     }
 }
