@@ -7,11 +7,14 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'mvn -v'
-                sh 'mvn clean'
-                sh 'mvn compile'
-                echo 'Building..'
+                sh 'mvn clean package'
             }
         }
+        post {
+            success {
+                  archiveArtifacts 'build/libs/*.jar'
+            }
+}
         stage('Test') {
             steps {
                 sh 'mvn test'
