@@ -4,10 +4,10 @@ pipeline {
          maven 'maven-3.8'
     }
     stages {
-        stage('Build') {
+        stage('compile') {
             steps {
                 sh 'mvn -v'
-                sh 'mvn clean package'
+                sh 'mvn compile'
             }
         }
         
@@ -17,16 +17,16 @@ pipeline {
                 echo 'Testing..'
             }
         }
-        stage('Deploy') {
+        stage('build') {
             steps {
                 sh 'mvn package'
-                echo 'Deploying....'
             }
         }
     }
     post {
             success {
                   archiveArtifacts '*/*.jar'
+                  junit '*/*.xml'
             }
     }
 }
