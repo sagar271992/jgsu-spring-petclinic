@@ -10,11 +10,7 @@ pipeline {
                 sh 'mvn clean package'
             }
         }
-        post {
-            success {
-                  archiveArtifacts 'build/libs/*.jar'
-            }
-}
+        
         stage('Test') {
             steps {
                 sh 'mvn test'
@@ -27,5 +23,10 @@ pipeline {
                 echo 'Deploying....'
             }
         }
+    }
+    post {
+            success {
+                  archiveArtifacts 'build/libs/*.jar'
+            }
     }
 }
