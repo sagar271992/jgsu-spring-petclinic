@@ -26,7 +26,7 @@ pipeline {
     }
     post {
             success {
-                  archiveArtifacts 'build/libs/*.jar'
+                  archiveArtifacts '*/*.jar'
             }
     }
 }
