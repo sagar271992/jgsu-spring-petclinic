@@ -27,6 +27,11 @@ pipeline {
         stage('deploy') {
             steps {
                sh "docker build -t petclinic:v1.0.0 . "
+               withCredentials([gitUsernamePassword(credentialsId: 'dockerhub', gitToolName: 'Default')]) {
+                sh "docker tag petclinic dockerhub/petclinic:v1.0.0"
+                sh "ocker commit petclinic dockerhub/petclinic:v1.0.0"
+                sh "docker push dockerhub/petclinic:v1.0.0"
+               }
             }
         }        
     }
