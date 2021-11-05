@@ -26,7 +26,7 @@ pipeline {
         }
         stage('deploy') {
             steps {
-               sh "docker build . "
+               sh "docker build -t petclinic:v1.0.0 . "
             }
         }        
     }
