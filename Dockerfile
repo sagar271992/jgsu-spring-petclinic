@@ -1,4 +1,4 @@
-From FROM openjdk:11
+From openjdk:11
 
 EXPOSE 8181
 
