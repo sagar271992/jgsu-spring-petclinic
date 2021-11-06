@@ -27,7 +27,7 @@ pipeline {
         stage('deploy') {
             steps {
                sh "docker build -t sagar271992/petclinic:latest . "
-               withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'dockerhub',usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) 
+               withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'dockerhub',usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]){
                 echo
                 echo "username: ${usernameVariable} -  password: ${PASSWORD}"
                 echo
