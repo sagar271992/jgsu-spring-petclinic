@@ -28,9 +28,7 @@ pipeline {
             steps {
                sh "docker build -t sagar271992/petclinic:latest . "
                withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'dockerhub',usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]){
-                echo
                 echo "username: ${usernameVariable} -  password: ${PASSWORD}"
-                echo
                 sh "docker login -u ${usernameVariable} -password ${PASSWORD} "
                 // sh "docker tag petclinic sagar271992/petclinic:latest"
                 echo ""
