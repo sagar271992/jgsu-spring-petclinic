@@ -4,20 +4,20 @@ pipeline {
          maven 'maven-3.8'
     }
     stages {
-        stage('compile') {
-            steps {
-                sh 'mvn -v'
-                sh 'mvn compile'
-            }
-        }
+        // stage('compile') {
+        //     steps {
+        //         sh 'mvn -v'
+        //         sh 'mvn compile'
+        //     }
+        // }
         
-        stage('Test') {
-            steps {
-                sh 'mvn test'
-                junit '**/target/surefire-reports/TEST-*.xml'
-                echo 'Testing done..'
-            }
-        }
+        // stage('Test') {
+        //     steps {
+        //         sh 'mvn test'
+        //         junit '**/target/surefire-reports/TEST-*.xml'
+        //         echo 'Testing done..'
+        //     }
+        // }
         stage('build') {
             steps {
                 sh 'mvn clean package -Dmaven.test.skip=true'
@@ -26,10 +26,11 @@ pipeline {
         }
         stage('deploy') {
             steps {
-               sh "docker build -t petclinic . "
-               withCredentials([gitUsernamePassword(credentialsId: 'dockerhub')]) {
-                sh "docker login -u sagar271992"
-                sh "docker tag petclinic dockerhub/petclinic:latest"
+               sh "docker build -t dockerhub/petclinic:latest . "
+               withCredentials([gitUsernamePassword(credentialsId: 'dockerhub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD' )]) {
+                echo "username: ${usernameVariable} -  password: ${PASSWORD}"
+                sh "docker login -u ${usernameVariable} -password ${PASSWORD} "
+                //sh "docker tag petclinic dockerhub/petclinic:latest"
                 sh "docker push sagar271992/petclinic:latest"
                }
             }
