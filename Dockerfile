@@ -1,7 +1,5 @@
-From openjdk:11
+FROM anapsix/alpine-java 
 
-EXPOSE 8181
+COPY ./target/spring-petclinic-2.5.0-SNAPSHOT.jar app.jar
 
-ADD target/spring-petclinic-2.3.2.BUILD-SNAPSHOT.jar app.jar
-
-ENTRYPOINT [ "java" "-jar" "app.jar" ] 
+CMD ["java","-jar","app.jar"]
