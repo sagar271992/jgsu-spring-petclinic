@@ -24,8 +24,10 @@ pipeline {
         // }
         stage('build') {
             steps {
-                sh 'mvn clean package -Dmaven.test.skip=true'
+                sh 'mvn clean package' //-Dmaven.test.skip=true'
+                junit '**/target/surefire-reports/TEST-*.xml'
                 archiveArtifacts 'target/*.jar'
+
             }
         }
         stage('deploy') {
