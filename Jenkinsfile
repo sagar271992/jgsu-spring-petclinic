@@ -7,6 +7,11 @@ pipeline{
                sh 'mvn clean package'
             }
         }
+        stage ("docker build") {
+            steps{
+                sh "docker build -t sagar271992/petclinic:latest ."
+            }
+        }
     }
 
 }
