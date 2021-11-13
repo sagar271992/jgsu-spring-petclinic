@@ -30,8 +30,8 @@ pipeline{
         }
         stage('deploy'){
             steps {
-                sh "kubectl --kubeconfig=/home/sagar/.kube/config apply -f ./k8s/deployment.yaml"
-                sh "kubectl --kubeconfig=/home/sagar/.kube/config apply -f ./k8s/service.yaml"
+                sh "kubectl --kubeconfig=/var/lib/jenkins/.kube/config apply -f ./k8s/deployment.yaml"
+                sh "kubectl --kubeconfig=/var/lib/jenkins/.kube/config apply -f ./k8s/service.yaml"
             }
         }
 
