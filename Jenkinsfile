@@ -16,7 +16,7 @@ pipeline{
         }
         stage ("docker build") {
             steps{
-                sh "docker build -t sagar271992/petclinic:latest ."
+                sh "docker build -t sagar271992/petclinic:'${env.BUILD_NUMBER}' ."
             }
         }
      
@@ -24,7 +24,7 @@ pipeline{
            steps {
                withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
                    sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
-                   sh 'docker push sagar271992/petclinic:latest'
+                   sh "docker push sagar271992/petclinic:'${env.BUILD_NUMBER}' "
                 }
             }
         }
