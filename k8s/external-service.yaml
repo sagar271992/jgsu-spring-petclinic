@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: petclinic-external-service
+  #namespace: mongodb-app
+spec:
+  selector:
+    app: petclinic
+  type: LoadBalancer   #make it external service it accept external req by assign external ip
+  ports:
+    - protocol: TCP
+      port: 8081
+      targetPort: 8080 #container port connect to
+      nodePort: 30000 

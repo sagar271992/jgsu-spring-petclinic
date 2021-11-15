@@ -33,7 +33,10 @@ pipeline{
                 echo "home: $HOME &  user: $USER"
                 sh "chmod 770 ./k8s/*.yaml"
                 sh "kubectl --kubeconfig=$HOME/.kube/config apply -f ./k8s/deployment.yaml"
-                sh "kubectl --kubeconfig=$HOME/.kube/config apply -f ./k8s/service.yaml"
+                
+                // sh "kubectl --kubeconfig=$HOME/.kube/config apply -f ./k8s/external-service.yaml"
+                
+                sh "kubectl --kubeconfig=$HOME/.kube/config apply -f ./k8s/internal-service.yaml"
                 sh "kubectl --kubeconfig=$HOME/.kube/config apply -f ./k8s/ingress.yaml"
 
             }

@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: petclinic-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules: #routing rule
+    - host: petclinic.com #this forword req to internal service need to map host name with node ip in k8s cluster
+      http: #you can also configure https con here
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: petclinic-internal-service #internal service name
+                port:
+                  number: 8081
