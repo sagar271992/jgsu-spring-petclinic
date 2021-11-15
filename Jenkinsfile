@@ -9,7 +9,7 @@ pipeline{
     stages{
         stage("build"){
             steps{
-               withMaven (maven 'maven-3.8') {
+               withMaven (maven:'maven-3.8') {
                    sh "mvn clean package"
                }
             }
@@ -19,14 +19,7 @@ pipeline{
                 sh "docker build -t sagar271992/petclinic:latest ."
             }
         }
-       stage('Docker Publish') {
-           steps {
-               withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
-                   sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
-                   sh 'docker push sagar271992/petclinic:latest'
-                }
-            }
-        }
+     
         stage('Docker Publish') {
            steps {
                withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
@@ -37,9 +30,14 @@ pipeline{
         }
         stage('deploy'){
             steps {
+<<<<<<< HEAD
                 sh "kubectl --kubeconfig=/home/sagar/.kube/config apply -f ./k8s/deployment.yaml"
                 sh "kubectl --kubeconfig=/home/sagar/.kube/config apply -f ./k8s/service.yaml"
                 sh "kubectl --kubeconfig=/var/lib/jenkins/.kube/config apply -f ./k8s/ingress.yaml"
+=======
+                sh "kubectl --kubeconfig=/var/lib/jenkins/.kube/config apply -f ./k8s/deployment.yaml"
+                sh "kubectl --kubeconfig=/var/lib/jenkins/.kube/config apply -f ./k8s/service.yaml"
+>>>>>>> da68258317c35f84f817fc4c2ece40bda954802f
             }
         }
 
